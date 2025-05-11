@@ -1,0 +1,30 @@
+# Dockerfile.api
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.api.txt .
+RUN pip install --no-cache-dir -r requirements.api.txt
+
+# Install additional dependencies for ML models
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create directory structure
+RUN mkdir -p data/raw data/processed models/collaborative_filtering models/content_based models/neural_network
+
+# Copy application code
+COPY api.py .
+COPY data_pipeline.py data/
+COPY models/collaborative_filtering.py models/collaborative_filtering/
+COPY models/content_based.py models/content_based/
+COPY models/neural_network.py models/neural_network/
+COPY evaluation.py .
+
+# Expose the port
+EXPOSE 8000
+
+# Run the FastAPI application
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]

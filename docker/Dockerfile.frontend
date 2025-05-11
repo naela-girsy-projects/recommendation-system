@@ -1,0 +1,22 @@
+# Dockerfile.frontend
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.frontend.txt .
+RUN pip install --no-cache-dir -r requirements.frontend.txt
+
+# Copy application code
+COPY frontend/app.py .
+COPY frontend/templates templates/
+
+# Expose the port
+EXPOSE 5000
+
+# Environment variables
+ENV API_URL="http://recommendation-api:8000"
+ENV FLASK_APP=app.py
+
+# Run the Flask application
+CMD ["flask", "run", "--host=0.0.0.0"]

@@ -1,0 +1,183 @@
+<!-- templates/register.html -->
+{% extends "base.html" %}
+
+{% block title %}Register - Movie Recommender{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="m-0">Register</h3>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{{ url_for('register') }}">
+                    <div class="mb-4">
+                        <label for="user_id" class="form-label">Choose a User ID</label>
+                        <input type="number" class="form-control" id="user_id" name="user_id" required>
+                        <div class="form-text">
+                            Enter any numerical ID you'd like to use. Remember this ID for future logins.
+                        </div>
+                    </div>
+                    
+                    <h4 class="mb-3">Movie Preferences</h4>
+                    <p class="text-muted mb-4">
+                        Select genres you enjoy to help us provide better recommendations. 
+                        You can update these preferences later.
+                    </p>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="genre_action" name="genre_action" checked>
+                                <label class="form-check-label" for="genre_action">Action</label>
+                            </div>
+                            <div class="ms-4 mt-2" id="action_rating_container">
+                                <label for="genre_action_rating" class="form-label">How much do you like Action?</label>
+                                <select class="form-select" id="genre_action_rating" name="genre_action_rating">
+                                    <option value="1">1 - Not much</option>
+                                    <option value="2">2 - It's okay</option>
+                                    <option value="3" selected>3 - I like it</option>
+                                    <option value="4">4 - I really like it</option>
+                                    <option value="5">5 - Love it!</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="genre_comedy" name="genre_comedy" checked>
+                                <label class="form-check-label" for="genre_comedy">Comedy</label>
+                            </div>
+                            <div class="ms-4 mt-2" id="comedy_rating_container">
+                                <label for="genre_comedy_rating" class="form-label">How much do you like Comedy?</label>
+                                <select class="form-select" id="genre_comedy_rating" name="genre_comedy_rating">
+                                    <option value="1">1 - Not much</option>
+                                    <option value="2">2 - It's okay</option>
+                                    <option value="3" selected>3 - I like it</option>
+                                    <option value="4">4 - I really like it</option>
+                                    <option value="5">5 - Love it!</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="genre_drama" name="genre_drama" checked>
+                                <label class="form-check-label" for="genre_drama">Drama</label>
+                            </div>
+                            <div class="ms-4 mt-2" id="drama_rating_container">
+                                <label for="genre_drama_rating" class="form-label">How much do you like Drama?</label>
+                                <select class="form-select" id="genre_drama_rating" name="genre_drama_rating">
+                                    <option value="1">1 - Not much</option>
+                                    <option value="2">2 - It's okay</option>
+                                    <option value="3" selected>3 - I like it</option>
+                                    <option value="4">4 - I really like it</option>
+                                    <option value="5">5 - Love it!</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="genre_scifi" name="genre_scifi" checked>
+                                <label class="form-check-label" for="genre_scifi">Sci-Fi</label>
+                            </div>
+                            <div class="ms-4 mt-2" id="scifi_rating_container">
+                                <label for="genre_scifi_rating" class="form-label">How much do you like Sci-Fi?</label>
+                                <select class="form-select" id="genre_scifi_rating" name="genre_scifi_rating">
+                                    <option value="1">1 - Not much</option>
+                                    <option value="2">2 - It's okay</option>
+                                    <option value="3" selected>3 - I like it</option>
+                                    <option value="4">4 - I really like it</option>
+                                    <option value="5">5 - Love it!</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="genre_thriller" name="genre_thriller">
+                                <label class="form-check-label" for="genre_thriller">Thriller</label>
+                            </div>
+                            <div class="ms-4 mt-2" id="thriller_rating_container" style="display: none;">
+                                <label for="genre_thriller_rating" class="form-label">How much do you like Thriller?</label>
+                                <select class="form-select" id="genre_thriller_rating" name="genre_thriller_rating">
+                                    <option value="1">1 - Not much</option>
+                                    <option value="2">2 - It's okay</option>
+                                    <option value="3" selected>3 - I like it</option>
+                                    <option value="4">4 - I really like it</option>
+                                    <option value="5">5 - Love it!</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="genre_romance" name="genre_romance">
+                                <label class="form-check-label" for="genre_romance">Romance</label>
+                            </div>
+                            <div class="ms-4 mt-2" id="romance_rating_container" style="display: none;">
+                                <label for="genre_romance_rating" class="form-label">How much do you like Romance?</label>
+                                <select class="form-select" id="genre_romance_rating" name="genre_romance_rating">
+                                    <option value="1">1 - Not much</option>
+                                    <option value="2">2 - It's okay</option>
+                                    <option value="3" selected>3 - I like it</option>
+                                    <option value="4">4 - I really like it</option>
+                                    <option value="5">5 - Love it!</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="genre_horror" name="genre_horror">
+                                <label class="form-check-label" for="genre_horror">Horror</label>
+                            </div>
+                            <div class="ms-4 mt-2" id="horror_rating_container" style="display: none;">
+                                <label for="genre_horror_rating" class="form-label">How much do you like Horror?</label>
+                                <select class="form-select" id="genre_horror_rating" name="genre_horror_rating">
+                                    <option value="1">1 - Not much</option>
+                                    <option value="2">2 - It's okay</option>
+                                    <option value="3" selected>3 - I like it</option>
+                                    <option value="4">4 - I really like it</option>
+                                    <option value="5">5 - Love it!</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <p class="mb-0">Already registered? <a href="{{ url_for('login') }}">Login here</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    // Toggle rating inputs based on checkbox state
+    document.addEventListener('DOMContentLoaded', function() {
+        const genres = ['action', 'comedy', 'drama', 'scifi', 'thriller', 'romance', 'horror'];
+        
+        genres.forEach(genre => {
+            const checkbox = document.getElementById(`genre_${genre}`);
+            const ratingContainer = document.getElementById(`${genre}_rating_container`);
+            
+            // Initial state
+            ratingContainer.style.display = checkbox.checked ? 'block' : 'none';
+            
+            // Add event listener
+            checkbox.addEventListener('change', function() {
+                ratingContainer.style.display = this.checked ? 'block' : 'none';
+            });
+        });
+    });
+</script>
+{% endblock %}
+{% endblock %}

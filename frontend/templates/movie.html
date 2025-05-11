@@ -1,0 +1,123 @@
+<!-- templates/movie.html -->
+{% extends "base.html" %}
+
+{% block title %}{{ movie.title }} - Movie Recommender{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Movie Details</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="{{ url_for('rate_movie', movie_id=movie.movie_id) }}" class="btn btn-warning">
+            <i class="bi bi-star-fill"></i> Rate This Movie
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 300px;">
+                {% if movie.poster_url %}
+                    <img src="{{ movie.poster_url }}" class="card-img-top" alt="{{ movie.title }}" style="max-height: 100%; object-fit: contain;">
+                {% else %}
+                    <svg width="200" height="200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="24" height="24" fill="white"/>
+                        <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7 7L17 17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M17 7L7 17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <h1 class="mb-3">{{ movie.title }}</h1>
+        
+        <div class="mb-4">
+            <span class="badge bg-secondary me-2">{{ movie.genres }}</span>
+            {% if movie.year %}
+            <span class="badge bg-dark">{{ movie.year }}</span>
+            {% endif %}
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h4>About this movie</h4>
+            </div>
+            <div class="card-body">
+                {% if movie.description %}
+                <p>{{ movie.description }}</p>
+                {% else %}
+                <p>No description available for this movie.</p>
+                {% endif %}
+                
+                <hr>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Genres</h5>
+                        {% for genre in movie.genres.split('|') %}
+                        <span class="badge bg-primary me-2 mb-2">{{ genre }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Release Year</h5>
+                        <p>{{ movie.year if movie.year else 'Unknown' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if similar_movies %}
+<div class="row mt-4">
+    <div class="col-12">
+        <h3>Similar Movies You Might Like</h3>
+        <hr>
+    </div>
+    
+    {% for similar_movie in similar_movies %}
+    <div class="col-md-4 col-lg-3 mb-4">
+        <div class="card recommendation-card h-100">
+            <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 200px;">
+                {% if similar_movie.poster_url %}
+                    <img src="{{ similar_movie.poster_url }}" class="card-img-top" alt="{{ similar_movie.title }}" style="max-height: 100%; object-fit: contain;">
+                {% else %}
+                    <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="24" height="24" fill="white"/>
+                        <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7 7L17 17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M17 7L7 17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ similar_movie.title }}</h5>
+                <p class="card-text">
+                    <span class="badge bg-secondary">{{ similar_movie.genres }}</span>
+                    {% if similar_movie.year %}
+                    <span class="badge bg-dark">{{ similar_movie.year }}</span>
+                    {% endif %}
+                </p>
+            </div>
+            <div class="card-footer bg-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="{{ url_for('movie_details', movie_id=similar_movie.movie_id) }}" class="btn btn-sm btn-primary">Details</a>
+                    <a href="{{ url_for('rate_movie', movie_id=similar_movie.movie_id) }}" class="btn btn-sm btn-outline-warning">Rate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

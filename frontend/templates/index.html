@@ -1,0 +1,104 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+
+{% block title %}Personalized Movie Recommender{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2 text-center">
+        <h1 class="mb-4 display-4">Welcome to the Movie Recommender</h1>
+        <p class="lead mb-5">
+            Get personalized movie recommendations using various algorithms including collaborative filtering, 
+            content-based filtering, neural networks, and hybrid approaches.
+        </p>
+        
+        {% if not session.get('user_id') %}
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg mb-3">Login</a>
+            <a href="{{ url_for('register') }}" class="btn btn-outline-primary btn-lg">Register</a>
+        </div>
+        {% else %}
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-lg mb-3">Go to Dashboard</a>
+            <a href="{{ url_for('recommendations') }}" class="btn btn-outline-primary btn-lg">View Recommendations</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-12">
+        <h2 class="text-center mb-4">How Our Recommendation System Works</h2>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Collaborative Filtering</h5>
+                <p class="card-text">
+                    Recommends movies based on similar users' preferences and behavior patterns.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Content-Based</h5>
+                <p class="card-text">
+                    Suggests movies similar to ones you've enjoyed based on genres, actors, and more.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Neural Network</h5>
+                <p class="card-text">
+                    Uses deep learning to identify complex patterns in your movie preferences.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Hybrid Approach</h5>
+                <p class="card-text">
+                    Combines multiple algorithms for the most accurate and diverse recommendations.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="m-0">Project Overview</h4>
+            </div>
+            <div class="card-body">
+                <p>
+                    This recommendation system demonstrates key AI/ML engineering skills used in companies like Netflix, Amazon, and Spotify. 
+                    It implements multiple recommendation approaches and provides a full production-ready system with:
+                </p>
+                <ul>
+                    <li>Data processing pipeline</li>
+                    <li>Multiple ML models (collaborative filtering, content-based, neural networks)</li>
+                    <li>Evaluation framework to compare algorithm performance</li>
+                    <li>RESTful API for serving recommendations</li>
+                    <li>User interface for interacting with recommendations</li>
+                </ul>
+                <p>
+                    The system is designed to be scalable, maintainable, and extensible - key attributes that big tech companies look for in AI/ML engineering roles.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

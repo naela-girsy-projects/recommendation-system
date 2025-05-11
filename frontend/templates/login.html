@@ -1,0 +1,42 @@
+<!-- templates/login.html -->
+{% extends "base.html" %}
+
+{% block title %}Login - Movie Recommender{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="m-0">Login</h3>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{{ url_for('login') }}">
+                    <div class="mb-3">
+                        <label for="user_id" class="form-label">User ID</label>
+                        <input type="number" class="form-control" id="user_id" name="user_id" required>
+                        <div class="form-text">
+                            Enter your numerical user ID. Use any number (e.g., 1-1000) for demo purposes.
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <p class="mb-0">Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+            </div>
+        </div>
+        
+        <div class="alert alert-info mt-4">
+            <h5>Note for Demo Users:</h5>
+            <p class="mb-0">
+                You can use any numeric ID to login. If the ID exists, you'll access that profile; 
+                if not, a new profile will be created.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
